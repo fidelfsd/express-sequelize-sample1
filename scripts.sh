@@ -3,8 +3,30 @@
 # crear la base de datos
 sequelize db:create
 
+
+# crear modelo Nationality
+sequelize model:generate --name Nationality --attributes 'nation:string'
+
+# crear modelo Address
+sequelize model:generate --name Address --attributes 'street:string,num:integer'
+
+#crear modelo Category
+sequelize model:generate --name Category --attributes 'category:string'
+
+#crear modelo Role
+sequelize model:generate --name Role --attributes 'role:string'
+
+# crear modelo User
+sequelize model:generate --name User --attributes 'user_name:string,user_last_name:string,birthday:date,email:string,password:string,id_role:integer'
+
 # crear modelo Student
-sequelize model:generate --name Student --attributes 'user_name:string,user_last_name:string,birthday:date,active:enum:{yes,no},id_nationality:integer,id_address:integer'
+sequelize model:generate --name Student --attributes 'active:enum:{yes,no},id_nationality:integer,id_address:integer,id_user:integer'
+
+# crear modelo Course
+sequelize model:generate --name Course --attributes 'course_name:string,id_category:integer'
+
+# las tablas intermedias en una relacion N:N no llevan modelo, pero si llevan migracion
+
 
 #############################################################
 

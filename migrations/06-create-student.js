@@ -9,25 +9,29 @@ module.exports = {
             primaryKey: true,
             type: Sequelize.INTEGER,
          },
-         user_name: {
-            type: Sequelize.STRING,
-            allowNull: false,
-         },
-         user_last_name: {
-            type: Sequelize.STRING,
-         },
-         birthday: {
-            type: Sequelize.DATE,
-            allowNull: false,
-         },
          active: {
             type: Sequelize.ENUM("yes", "no"),
          },
          id_nationality: {
             type: Sequelize.INTEGER,
+            references: {
+               model: "nationalities",
+               key: "id",
+            },
          },
          id_address: {
             type: Sequelize.INTEGER,
+            references: {
+               model: "addresses",
+               key: "id",
+            },
+         },
+         id_user: {
+            type: Sequelize.INTEGER,
+            references: {
+               model: "users",
+               key: "id",
+            },
          },
          createdAt: {
             allowNull: false,

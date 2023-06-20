@@ -8,17 +8,31 @@ module.exports = (sequelize, DataTypes) => {
        * The `models/index` file will call this method automatically.
        */
       static associate(models) {
-         // define association here
+         // Student {01}--{1} User
+         Student.belongsTo(models.User, {
+            as: "user",
+            foreignKey: "id_user", // foreignKey de Student
+         });
+
+         // Student {0..n}--{1} Nationality
+         Student.belongsTo(models.Nationality, {
+            as: "nationality",
+            foreignKey: "id_nationality", // foreignKey de Student
+         });
+
+         // Student {0..n}--{1} Address
+         Student.belongsTo(models.Address, {
+            as: "address",
+            foreignKey: "id_address", // foreignKey de Student
+         });
       }
    }
    Student.init(
       {
-         user_name: DataTypes.STRING,
-         user_last_name: DataTypes.STRING,
-         birthday: DataTypes.DATE,
          active: DataTypes.ENUM("yes", "no"),
          id_nationality: DataTypes.INTEGER,
          id_address: DataTypes.INTEGER,
+         id_user: DataTypes.INTEGER,
       },
       {
          sequelize,
