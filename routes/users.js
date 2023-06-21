@@ -1,8 +1,9 @@
 const express = require("express");
+const userController = require("../controllers/user");
+const verifyToken = require("../middelwares/verifyToken");
 const router = express.Router();
-const studentController = require("../controllers/student");
 
 /* GET users listing. */
-router.get("/", studentController.getAll);
+router.get("/", verifyToken, userController.getAll);
 
 module.exports = router;

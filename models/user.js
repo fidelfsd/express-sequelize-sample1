@@ -23,10 +23,40 @@ module.exports = (sequelize, DataTypes) => {
    }
    User.init(
       {
-         user_name: DataTypes.STRING,
-         user_last_name: DataTypes.STRING,
-         birthday: DataTypes.DATE,
-         email: DataTypes.STRING,
+         user_name: {
+            type: DataTypes.STRING,
+            validate: {
+               is: {
+                  msg: "Name not valid",
+                  args: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
+               },
+            },
+         },
+         user_last_name: {
+            type: DataTypes.STRING,
+            validate: {
+               is: {
+                  msg: "Name not valid",
+                  args: /^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u,
+               },
+            },
+         },
+         birthday: {
+            type: DataTypes.DATE,
+            validate: {
+               isDate: true,
+               isAfter: "1900-01-01",
+            },
+         },
+         email: {
+            type: DataTypes.STRING,
+            unique: true,
+            validate: {
+               isEmail: {
+                  msg: "Email not valid",
+               },
+            },
+         },
          password: DataTypes.STRING,
          id_role: DataTypes.INTEGER,
       },
