@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { Role, User } = require("../../models");
+const { Role, User, Student } = require("../../models");
 
 /**
  * Login user
@@ -45,6 +45,15 @@ module.exports = async (req, res) => {
       const token = jwt.sign(payload, process.env.JWT_SECRET, {
          expiresIn: "1h",
       });
+
+      // const student = await Student.findOne({
+      //    where: {
+      //       id_user: user.id,
+      //    },
+      // });
+
+      // const courses = await student.getCourses();
+      // console.log(courses.length);
 
       res.status(200).json({
          token,

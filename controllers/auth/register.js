@@ -35,7 +35,9 @@ module.exports = async (req, res) => {
          id_user: user.id,
       };
 
-      await Student.create(newStudent);
+      const student = await Student.create(newStudent);
+      // student.addCourse(1); metodo generado por sequelize a partir del modelo Course (N:N con Student)
+      // student.save();
 
       res.status(201).json({
          message: "User created succesfully",
