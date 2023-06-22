@@ -1,7 +1,11 @@
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+const { generateToken } = require("../../_utils/token");
 
 const { Role, User, Student } = require("../../models");
+
+const test = require("../../models");
+
+console.log(test.sequelize.models);
 
 /**
  * Login user
@@ -36,14 +40,10 @@ module.exports = async (req, res) => {
          });
       }
 
-      const payload = {
+      const token = generateToken({
          userId: user.id,
          userName: user.user_name,
          userRole: user.role.role,
-      };
-
-      const token = jwt.sign(payload, process.env.JWT_SECRET, {
-         expiresIn: "1h",
       });
 
       // const student = await Student.findOne({

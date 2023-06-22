@@ -1,26 +1,24 @@
-const jwt = require("jsonwebtoken");
+const { getTokenFromHeader, decodedToken } = require("../_utils/token");
 
 module.exports = (req, res, next) => {
-   const { authorization } = req.headers;
-
    // verificar si hay token
-   if (!authorization) {
+   const token = getTokenFromHeader(req.headers);
+
+   if (!token) {
       return res.status(401).json({
          status: "Error",
          message: "No authorization token was found",
       });
    }
-   // extraer el token
-   const token = authorization.split(" ")[1];
 
    try {
       // decodificar token
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const decoded = decodedToken(token);
 
       // modificar el objeto Request
-      req.userId = decodedToken.userId;
-      req.userName = decodedToken.userName;
-      req.userRole = decodedToken.userRole;
+      req.userId = decoded.userId;
+      req.userName = decoded.userName;
+      req.userRole = decoded.userRole;
 
       // ejecutar la seguiente funcion en el ciclo de middelwares
       next();

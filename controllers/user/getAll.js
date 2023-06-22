@@ -7,7 +7,12 @@ console.log(models.sequelize.models);
 module.exports = async (req, res) => {
    try {
       const users = await User.findAll({
-         attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+         //attributes: { exclude: ["password", "createdAt", "updatedAt"] },
+         attributes: [
+            "id",
+            ["user_name", "name"],
+            ["user_last_name", "last_name"],
+         ],
          include: [
             {
                model: Role,
