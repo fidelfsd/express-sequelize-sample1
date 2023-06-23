@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { generateToken } = require("../../_utils/token");
+const { errorMsg, successMsg } = require("../../_utils/messages");
 
 const { Role, User, Student } = require("../../models");
 
@@ -16,6 +17,13 @@ console.log(test.sequelize.models);
 module.exports = async (req, res) => {
    const { email, password } = req.body;
 
+   if (!email || !password) {
+      return res.status(400).json({
+         status: "Error",
+         message: errorMsg.authentication.REQUIERED,
+      });
+   }
+
    try {
       const user = await User.findOne({
          where: {
@@ -27,7 +35,7 @@ module.exports = async (req, res) => {
       if (!user) {
          return res.status(400).json({
             status: "Error",
-            message: "These credentials do not match our records",
+            message: errorMsg.authentication.BADCREDENTIALS,
          });
       }
 
@@ -36,7 +44,7 @@ module.exports = async (req, res) => {
       if (!isMatch) {
          return res.status(400).json({
             status: "Error",
-            message: "These credentials do not match our records",
+            message: errorMsg.authentication.BADCREDENTIALS,
          });
       }
 
@@ -61,7 +69,7 @@ module.exports = async (req, res) => {
    } catch (error) {
       res.status(500).json({
          status: "Error",
-         message: error.message,
+         message: errorMsg.authentication.LOGINFAILED,
       });
    }
 };

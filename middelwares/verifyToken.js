@@ -1,3 +1,4 @@
+const { errorMsg } = require("../_utils/messages");
 const { getTokenFromHeader, decodedToken } = require("../_utils/token");
 
 module.exports = (req, res, next) => {
@@ -7,7 +8,7 @@ module.exports = (req, res, next) => {
    if (!token) {
       return res.status(401).json({
          status: "Error",
-         message: "No authorization token was found",
+         message: errorMsg.token.NOTFOUND,
       });
    }
 

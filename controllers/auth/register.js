@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const { Student, User } = require("../../models");
+const { successMsg, errorMsg } = require("../../_utils/messages");
 
 /**
  * Create new user
@@ -13,7 +14,7 @@ module.exports = async (req, res) => {
    if (password.lenght < 8) {
       return res.status(400).json({
          status: "Error",
-         message: "Password length can not be less than 8",
+         message: errorMsg.user.PASSWORDLEN,
       });
    }
 
@@ -36,11 +37,11 @@ module.exports = async (req, res) => {
       };
 
       const student = await Student.create(newStudent);
-      await student.addCourse(2); //metodo generado por sequelize a partir del modelo Course (N:N con Student)
-      await student.save();
+      //await student.addCourse(2); //metodo generado por sequelize a partir del modelo Course (N:N con Student)
+      //await student.save();
 
       res.status(201).json({
-         message: "User created succesfully",
+         message: successMsg.user.CREATE,
       });
    } catch (error) {
       console.log(error.name);
@@ -53,7 +54,7 @@ module.exports = async (req, res) => {
 
       res.status(statusCode).json({
          status: "Error",
-         message: error.message,
+         message: errorMsg.user.CREATE,
       });
    }
 };
