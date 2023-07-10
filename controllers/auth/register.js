@@ -1,6 +1,9 @@
 const bcrypt = require("bcrypt");
 const { Student, User } = require("../../models");
 const { successMsg, errorMsg } = require("../../_utils/messages");
+const { role } = require("../../config/global");
+
+// ----------------------------------------------------------------------
 
 /**
  * Create new user
@@ -27,7 +30,7 @@ module.exports = async (req, res) => {
          email,
          password: hash,
          birthday,
-         id_role: 2, // role = user
+         id_role: role.STUDENT.ID,
       };
 
       const user = await User.create(newUser);
@@ -55,6 +58,7 @@ module.exports = async (req, res) => {
       res.status(statusCode).json({
          status: "Error",
          message: errorMsg.user.CREATE,
+         error: error?.message,
       });
    }
 };

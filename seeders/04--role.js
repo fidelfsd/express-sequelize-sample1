@@ -8,12 +8,12 @@ module.exports = {
          "roles",
          [
             {
-               role: "admin",
+               name: "admin",
                createdAt: new Date(),
                updatedAt: new Date(),
             },
             {
-               role: "user",
+               name: "student",
                createdAt: new Date(),
                updatedAt: new Date(),
             },
@@ -23,8 +23,6 @@ module.exports = {
    },
 
    async down(queryInterface, Sequelize) {
-      await queryInterface.bulkDelete("roles", {
-         [Op.or]: [{ role: "admin" }, { role: "user" }],
-      });
+      await queryInterface.bulkDelete("roles", {});
    },
 };

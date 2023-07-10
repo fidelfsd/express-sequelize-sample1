@@ -1,5 +1,4 @@
 "use strict";
-const { Op } = require("sequelize");
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -49,15 +48,6 @@ module.exports = {
    },
 
    async down(queryInterface, Sequelize) {
-      await queryInterface.bulkDelete("courses", {
-         [Op.or]: [
-            { course_name: "HTML" },
-            { course_name: "CSS" },
-            { course_name: "JavaScript" },
-            { course_name: "SQL" },
-            { course_name: "Express" },
-            { course_name: "NodeJs" },
-         ],
-      });
+      await queryInterface.bulkDelete("courses", {});
    },
 };

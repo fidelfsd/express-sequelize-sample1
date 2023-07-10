@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
    }
    User.init(
       {
-         user_name: {
+         name: {
             type: DataTypes.STRING,
             validate: {
                is: {
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
                },
             },
          },
-         user_last_name: {
+         last_name: {
             type: DataTypes.STRING,
             validate: {
                is: {

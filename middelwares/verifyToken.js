@@ -20,6 +20,7 @@ module.exports = (req, res, next) => {
       req.userId = decoded.userId;
       req.userName = decoded.userName;
       req.userRole = decoded.userRole;
+      req.roleId = decoded.roleId;
 
       // ejecutar la seguiente funcion en el ciclo de middelwares
       next();

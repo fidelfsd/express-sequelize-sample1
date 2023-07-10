@@ -4,9 +4,7 @@ const { errorMsg, successMsg } = require("../../_utils/messages");
 
 const { Role, User, Student } = require("../../models");
 
-const test = require("../../models");
-
-console.log(test.sequelize.models);
+// ----------------------------------------------------------------------
 
 /**
  * Login user
@@ -45,13 +43,15 @@ module.exports = async (req, res) => {
          return res.status(400).json({
             status: "Error",
             message: errorMsg.authentication.BADCREDENTIALS,
+            
          });
       }
 
       const token = generateToken({
          userId: user.id,
          userName: user.user_name,
-         userRole: user.role.role,
+         userRole: user.role.name,
+         roleId: user.id_role,
       });
 
       // const student = await Student.findOne({
@@ -70,6 +70,7 @@ module.exports = async (req, res) => {
       res.status(500).json({
          status: "Error",
          message: errorMsg.authentication.LOGINFAILED,
+         error: error?.message,
       });
    }
 };
