@@ -43,13 +43,12 @@ module.exports = async (req, res) => {
          return res.status(400).json({
             status: "Error",
             message: errorMsg.authentication.BADCREDENTIALS,
-            
          });
       }
 
       const token = generateToken({
          userId: user.id,
-         userName: user.user_name,
+         userName: user.name,
          userRole: user.role.name,
          roleId: user.id_role,
       });

@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
    try {
       // user update
 
-      const updatedResult = await User.update(
+      await User.update(
          {
             ...req.body,
             password: req.body.password ? hash(req.body.password) : undefined,
@@ -20,15 +20,6 @@ module.exports = async (req, res) => {
             where: { id: userId },
          }
       );
-
-      // send error response if user not found
-
-      if (updatedResult == 0) {
-         return res.status(400).json({
-            status: "error",
-            message: errorMsg.user.NOTFOUND,
-         });
-      }
 
       // student update
 

@@ -28,7 +28,7 @@ module.exports = async (req, res) => {
    }
 
    try {
-      const students = await Student.findAll({
+      const result = await Student.findAll({
          limit: LIMIT,
          offset: (page - 1) * LIMIT,
          attributes: {
@@ -57,6 +57,18 @@ module.exports = async (req, res) => {
                attributes: { exclude: ["id", "createdAt", "updatedAt"] },
             },
          ],
+      });
+
+      const students = result.map((student) => {
+         return {
+            id: student.id,
+            name: student.user.name,
+            last_name: student.user.last_name,
+            email: student.user.email,
+            birthday: student.user.birthday,
+            nationality: student.nationality.nation,
+            address: student.address,
+         };
       });
 
       res.status(200).json({
