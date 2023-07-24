@@ -2,11 +2,11 @@ module.exports = {
    maxSeed: {
       NATIONALITY: 10,
       ADDRESS: 30,
-      USER: 50, // not include admin user
+      USER: 100, // not include admin user
       COURSE: 6,
    },
    pagination: {
-      LIMIT: 10,
+      LIMIT: 20,
    },
    user: {
       PASSWORD_MIN_LEN: 8,

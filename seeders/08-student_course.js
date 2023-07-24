@@ -17,7 +17,7 @@ for (let student = 2; student <= maxStudents; student++) {
 
 shuffle(allStudentCourseCombinations);
 
-let students_courses = [...Array(maxStudents * 2)].map((_, index) => ({
+let students_courses = [...Array(maxStudents * 3)].map((_, index) => ({
    id_student: allStudentCourseCombinations[index].student,
    id_course: allStudentCourseCombinations[index].course,
    updatedAt: new Date(),

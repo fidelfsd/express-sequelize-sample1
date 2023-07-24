@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
       let studentNationality;
       let studentAddress;
       let courses = [];
-      let category;
+
       if (student) {
          studentNationality = await student.getNationality();
          studentAddress = await student.getAddress();
@@ -25,7 +25,7 @@ module.exports = async (req, res) => {
 
       const coursesWithcategory = [];
       for (const course of courses) {
-         category = await course.getCategory();
+         const category = await course.getCategory();
          coursesWithcategory.push({
             id: course.id,
             name: course.course_name,

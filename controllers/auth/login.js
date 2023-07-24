@@ -37,6 +37,18 @@ module.exports = async (req, res) => {
          });
       }
 
+      // get student id, doctor id
+      const userRole = user.role.name;
+      let student;
+      let doctor;
+      if (userRole === "student") {
+         student = await user.getStudent();
+      } else if (userRole === "doctor") {
+         doctor = await user.getDoctor();
+      }
+
+      //console.log({ student: student.id, user: user.id });
+
       const isMatch = bcrypt.compareSync(password, user.password);
 
       if (!isMatch) {
@@ -51,6 +63,7 @@ module.exports = async (req, res) => {
          userName: user.name,
          userRole: user.role.name,
          roleId: user.id_role,
+         studentId: student?.id,
       });
 
       // const student = await Student.findOne({
