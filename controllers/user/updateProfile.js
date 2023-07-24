@@ -1,6 +1,7 @@
 const { errorMsg, successMsg } = require("../../_utils/messages");
 const { role } = require("../../config/global");
 const { User, Student } = require("../../models");
+const bcrypt = require("bcrypt");
 
 // ----------------------------------------------------------------------
 
@@ -13,7 +14,9 @@ module.exports = async (req, res) => {
       await User.update(
          {
             ...req.body,
-            password: req.body.password ? hash(req.body.password) : undefined,
+            password: req.body.password
+               ? bcrypt.hashSync(req.body.password, 10)
+               : undefined,
             id_role: roleId, // to avoid update id_role
          },
          {

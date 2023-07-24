@@ -40,11 +40,11 @@ module.exports = async (req, res) => {
       // get student id, doctor id
       const userRole = user.role.name;
       let student;
-      let doctor;
+      //let doctor;
       if (userRole === "student") {
          student = await user.getStudent();
       } else if (userRole === "doctor") {
-         doctor = await user.getDoctor();
+         //doctor = await user.getDoctor();
       }
 
       //console.log({ student: student.id, user: user.id });
